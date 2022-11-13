@@ -1,0 +1,86 @@
+%EXAMEN #2. PREDICADOS CON EXPRESIONES.
+
+%5 Predicados con menores, mayores.  Elegir.
+iguales(A, A).
+iguales(A, A, A).
+iguales(A, A, A, A).
+iguales(A, A, A, A, A).
+%#1
+menor(A,B,A) :- A<B , !.
+menor(_,B,B).
+menor(A,B,C,Me):- menor(A,B,Me1), menor(C,Me1,Me).
+menor(A,B,C,D,Me):- menor(A,B,C,Me1), menor(D,Me1,Me).
+menor(A,B,C,D,E,Me):- menor(A,B,C,D,Me1),menor(E,Me1,Me).
+%#2
+mayor(A,B,A):-A>B,!.
+mayor(_,B,B).
+mayor(A,B,C,Me):-mayor(A,B,Me1), mayor(C,Me1,Me).
+mayor(A,B,C,D,Me):- mayor(A,B,C,Me1), mayor(D,Me1,Me).
+mayor(A,B,C,D,E,Me):- mayor(A,B,C,D,Me1), mayor(E,Me1,Me).
+%#3
+segMenor(A,B,Me):-mayor(A,B,Me).
+segMenor(A,B,C,Me):-menor(A,B,C,Me1), iguales(A,Me1), menor(B,C,Me),!.
+segMenor(A,B,C,Me):-menor(A,B,C,Me1), iguales(B,Me1), menor(A,C,Me),!.
+segMenor(A,B,_,Me):-menor(A,B,Me).
+segMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(A,Me1), menor(B,C,D,Me),!.
+segMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(B,Me1), menor(A,C,D,Me),!.
+segMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(C,Me1), menor(A,B,D,Me),!.
+segMenor(A,B,C,_,Me):-menor(A,B,C,Me).
+segMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(A,Me1), menor(B,C,D,E,Me),!.
+segMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(B,Me1), menor(A,C,D,E,Me),!.
+segMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(C,Me1), menor(A,B,D,E,Me),!.
+segMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(D,Me1), menor(A,B,C,E,Me),!.
+segMenor(A,B,C,D,_,Me):-menor(A,B,C,D,Me).
+
+%#4
+segMayor(A,B,Me):-menor(A,B,Me).
+segMayor(A,B,C,Me):-mayor(A,B,C,Me1), iguales(A,Me1), mayor(B,C,Me),!.
+segMayor(A,B,C,Me):-mayor(A,B,C,Me1), iguales(B,Me1), mayor(A,C,Me),!.
+segMayor(A,B,_,Me):-mayor(A,B,Me).
+segMayor(A,B,C,D,Me):-mayor(A,B,C,D,Me1), iguales(A,Me1), mayor(B,C,D,Me),!.
+segMayor(A,B,C,D,Me):-mayor(A,B,C,D,Me1), iguales(B,Me1), mayor(A,C,D,Me),!.
+segMayor(A,B,C,D,Me):-mayor(A,B,C,D,Me1), iguales(C,Me1), mayor(A,B,D,Me),!.
+segMayor(A,B,C,_,Me):-mayor(A,B,C,Me).
+segMayor(A,B,C,D,E,Me):-mayor(A,B,C,D,E,Me1), iguales(A,Me1), mayor(B,C,D,E,Me),!.
+segMayor(A,B,C,D,E,Me):-mayor(A,B,C,D,E,Me1), iguales(B,Me1), mayor(A,C,D,E,Me),!.
+segMayor(A,B,C,D,E,Me):-mayor(A,B,C,D,E,Me1), iguales(C,Me1), mayor(A,B,D,E,Me),!.
+segMayor(A,B,C,D,E,Me):-mayor(A,B,C,D,E,Me1), iguales(D,Me1), mayor(A,B,C,E,Me),!.
+segMayor(A,B,C,D,_,Me):-mayor(A,B,C,D,Me).
+
+%#5
+tercerMenor(A,B,C,Me):-menor(A,B,C,Me1), iguales(A,Me1), segMenor(B,C,Me),!.
+tercerMenor(A,B,C,Me):-menor(A,B,C,Me1), iguales(B,Me1), segMenor(A,C,Me),!.
+tercerMenor(A,B,_,Me):-segMenor(A,B,Me).
+tercerMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(A,Me1), segMenor(B,C,D,Me),!.
+tercerMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(B,Me1), segMenor(A,C,D,Me),!.
+tercerMenor(A,B,C,D,Me):-menor(A,B,C,D,Me1), iguales(C,Me1), segMenor(A,B,D,Me),!.
+tercerMenor(A,B,C,_,Me):-segMenor(A,B,C,Me).
+tercerMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(A,Me1), segMenor(B,C,D,Me),!.
+tercerMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(B,Me1), segMenor(A,C,D,Me),!.
+tercerMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(C,Me1), segMenor(A,B,D,Me),!.
+tercerMenor(A,B,C,D,E,Me):-menor(A,B,C,D,E,Me1), iguales(D,Me1), segMenor(A,B,C,Me),!.
+tercerMenor(A,B,C,D,_,Me):-segMenor(A,B,C,D,Me).
+
+
+%5 Predicados Adicionales. Elegir.
+
+
+%5 Predicados sobre Plano Cartesiano.  Elegir.
+
+
+%5 Predicados sobre Recursividad. Elegir.
+%#1
+sumaEnteros(N,Sum):-sumaEnteros(N,Sum,0).
+sumaEnteros(N,Sum,Ac):-1>N,Sum is Ac,!.
+sumaEnteros(N,Sum,Ac):-Ac1 is (Ac + N),N1 is N - 1, sumaEnteros(N1,Sum,Ac1).
+%#2
+fibo(1,0):-!.
+fibo(2,1):-!.
+fibo(N,F):- N1 is N-1, N2 is N-2, fibo(N1,F1), fibo(N2,F2), F is F1+F2.
+%#3
+pot(_,0,1):-!.
+pot(N,P,R):- P1 is (P-1), pot(P,P1,R), R is (N*R).
+
+%En lo posible, los integrantes de grupo, elegir predicados diferentes.
+
+%Tiempo 45 minutos. MARTES, 18 DE OCTUBRE.
